@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valider le code</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;1,700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #00386e;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.25);
+            top: 0;
+            left: 0;
+            z-index: 403;
+            width: 100%;
+            padding: 0 20px;
+            min-height: 5.125rem;
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        .header .left,
+        .header .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .left a {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header .center {
+            flex: 1;
+            text-align: center;
+            height: 70px;
+        }
+
+        .header a {
+            color: #00386e;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .header .right a {
+            background-color: #00386e;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .header a:hover {
+            background-color:rgb(220, 230, 240);
+            color: #00386e;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .login-form {
+            background: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+        }
+
+        .login-form h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #00386e;
+        }
+
+        .login-form label {
+            display: block;
+            font-size: 20px;
+            color: #00386e;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .login-form button {
+            background-color: #00386e;
+            color: #fff;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #fff; /* Đổi màu nền thành trắng */
+            color: #00386e; /* Màu chữ xanh đậm */
+            border: 2px solid #00386e; /* Thêm viền xanh */
+            transform: translateY(-5px); /* Hiệu ứng nổi lên */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+            transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+        }
+        
+
+        .login-form button:active {
+            background-color: #001e3c;
+            transform: scale(0.98);
+        }
+
+        .footer {
+            background-color: #00386e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="left">
+            <a href="https://bu.parisnanterre.fr/">Bibliothèques</a>
+        </div>
+        <div class="center">
+            <img src="{% static 'images/logo.png' %}" alt="Logo Bibliothèque" height="50">
+        </div>
+        <div class="right">
+            <a href="https://ent.parisnanterre.fr/">ENT</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="login-form">
+            <h2>Valider le code</h2>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label for="code">Entrez votre code :</label>
+                <input type="text" id="code" name="code" placeholder="Entrez votre code" required>
+                <button type="submit">Valider</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Université Paris Nanterre - Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

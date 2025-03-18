@@ -1,0 +1,239 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;1,700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une réservation</title>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #00386e;
+        }
+
+        /* Header */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.25);
+            top: 0;
+            left: 0;
+            z-index: 403;
+            width: 100%;
+            padding: 0 20px;
+            min-height: 5.125rem;
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        .header .left,
+        .header .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .left a {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header .center {
+            flex: 1;
+            text-align: center;
+            height: 70px;
+        }
+
+        .header a {
+            color: #00386e;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .header .right a {
+            background-color: #00386e;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .header a:hover {
+            background-color: rgb(220, 230, 240);
+            color: #00386e;
+        }
+
+        /* Menu Bar */
+        .menu-bar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-top: 2px solid rgb(83, 154, 220);
+        }
+
+        .menu-bar a {
+            color: #00386e;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 0 20px;
+        }
+
+        .menu-bar a:hover {
+            color: rgb(150, 190, 233);
+        }
+
+        /* Contenu principal */
+        .content {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #00386e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form h3 {
+            color: #00386e;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea, select, button {
+            width: calc(100% - 24px);
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #00509e;
+            outline: none;
+        }
+
+        button {
+            background-color: #00386e;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        button:hover {
+            background-color:rgb(220, 238, 255);
+            color: rgb(28, 96, 163);
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+        }
+        
+
+        p.error {
+            color: #c60000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="left">
+            <a href="https://bu.parisnanterre.fr/">Bibliothèques</a>
+        </div>
+        <div class="center">
+            <img src="{% static 'images/logo.png' %}" alt="Logo Bibliothèque" height="50">
+        </div>
+        <div class="right">
+            <a href="https://ent.parisnanterre.fr/">ENT</a>
+        </div>
+    </header>
+
+
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+        <a href="#" style="pointer-events: none; color: #999;">Numéro d'étudiant: {{ student_number }}</a>
+        <a href="{% url 'login' %}">Accueil</a>
+        <a href="{% url 'manage_reservations' %}">Mes réservations</a>
+        <a href="{% url 'logout' %}">Déconnexion</a>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="content">
+        <h1>Créer une réservation pour {{ room_name }}</h1>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <h3>Informations de l'étudiant</h3>
+            <label for="student_number">Numéro d'étudiant :</label>
+            <input type="text" id="student_number" name="student_number" value="{{ student_number }}" readonly><br>
+
+            <h3>Informations sur la réservation</h3>
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" value="{{ date_selected }}" min="{{ today }}" required><br>
+
+            <label for="start_time">Heure de début :</label>
+<select id="start_time" name="start_time" required>
+    {% for time in time_slots %}
+        <option value="{{ time }}" {% if time == start_time %}selected{% endif %}>{{ time }}</option>
+    {% endfor %}
+</select><br>
+
+<label for="end_time">Heure de fin :</label>
+<select id="end_time" name="end_time" required>
+    {% for time in time_slots %}
+        {% if time > start_time %}
+            <option value="{{ time }}">{{ time }}</option>
+        {% endif %}
+    {% endfor %}
+</select><br>
+
+            {% if end_time_error %}
+                <p class="error">{{ end_time_error }}</p>
+            {% endif %}
+
+            <label for="participants">Nombre de participants :</label>
+            <input type="number" id="participants" name="participants" min="1" max="4" required><br>
+
+            <button type="submit">Valider la réservation</button>
+        </form>
+    </div>
+</body>
+</html>

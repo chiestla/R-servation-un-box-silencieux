@@ -1,0 +1,447 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;1,700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Bibliothèque Université Nanterre</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f4f7fa;
+            color: #00386e;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        
+        .header {
+            background-color: #fff;
+            box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.25);
+            top: 0;
+            left: 0;
+            z-index: 403;
+            width: 100%; 
+            padding: 0 20px; 
+            min-height: 5.125rem;
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box; 
+        }
+
+        
+        .header .left,
+        .header .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .left a {
+            font-size: 18px; 
+            font-weight: bold;
+        }
+        
+        .header .center {
+            flex: 1; 
+            text-align: center;
+            height: 70px;
+        }
+        
+        .header a {
+            color: #00386e;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+        
+        .header .right a {
+            background-color: #00386e;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px; 
+            font-size: 18px; 
+            font-weight: bold;
+            white-space: nowrap; 
+        }
+        
+        .header a:hover {
+            background-color:rgb(220, 230, 240);
+            color: #00386e;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column; 
+                align-items: center;
+                padding: 1rem;
+            }
+        
+            .header .left,
+            .header .right {
+                justify-content: center;
+                margin-bottom: 0.5rem;
+            }
+        
+            .header .center {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+
+        /* Menu Bar */
+        .menu-bar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            position: sticky; 
+            top: 0; 
+            z-index: 999; 
+        }
+
+        .menu-bar ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-bar li {
+            margin: 0;
+        }
+
+        .menu-bar a {
+            color:rgb(34, 62, 87);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: normal; 
+            transition: color 0.3s;
+        }
+
+        .menu-bar a:hover {
+            color:rgb(190, 221, 248);
+        }
+
+        /* Cover Section */
+        .cover-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-image: url('{% static "images/cover.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cover-text {
+            position: relative;
+            z-index: 1;
+            font-size: 45px;
+            color: #00386e;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Introduction Section */
+        .introduction {
+            text-align: left; 
+            padding: 40px 20px;
+            background-color: #F6F0ED; 
+            line-height: 1.6;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        
+        .introduction h1, .introduction h3 {
+            font-family: 'Bitter', serif; /* Font cho h2 và h3 */
+            color: #00386e;
+            margin-bottom: 20px;
+        }
+        
+        .introduction h1 {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase; 
+            position: relative; 
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .introduction h1::after {
+            content: ""; 
+            display: block;
+            width: 400px; 
+            height: 4px; 
+            background-color: #00386e; 
+            border-radius: 10px; 
+            margin: 10px auto 0; 
+        }
+        
+        .introduction h1 + p {
+            margin-top: 30px; 
+        }
+        
+        
+        .introduction h3 {
+            font-size: 30px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .introduction p{
+            font-family: 'Quicksand', sans-serif; 
+            color: #171717;
+            margin-top: 20px;
+            font-size: 25px;
+        }
+        
+        .introduction ul {
+            list-style: disc;
+            margin-left: 20px; 
+            padding-left: 20px;
+        }
+        
+        .introduction li {
+            font-family: 'Quicksand', sans-serif; 
+            color: #171717; 
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+        
+
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+        
+        .login-form {
+            background: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+        }
+        
+        .login-form h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #00386e;
+        }
+        
+        .login-form label {
+            display: block;
+            font-size: 20px;
+            color: #00386e;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .login-form button {
+            background-color: #00386e;
+            color: #fff;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 30px;
+        }
+        
+        .login-form button:hover,
+        .login-form button:focus {
+            background-color: #fff;
+            color: #00386e;
+            border: 2px solid #00386e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 56, 110, 0.2);
+        }
+        
+        .login-form button:active {
+            background-color: #001e3c;
+            transform: scale(0.98);
+        }
+        
+
+
+        /* Footer */
+        .footer {
+            background-color: #00386e;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .footer h2{
+            font-size: 30px;
+        }
+
+        .contact-button {
+            background-color: #fff;
+            color: #00386e;
+            border: 2px solid #00386e;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .contact-button:hover {
+            background-color: rgb(250, 250, 251);    
+            color: #00386e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(244, 246, 248, 0.2);
+        }
+        
+        .contact-button:active {
+            transform: scale(1.05); 
+            box-shadow: 0 10px 20px rgba(0, 56, 110, 0.3); 
+        }
+        
+        
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .menu-bar ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .menu-bar li {
+                margin: 10px 0;
+            }
+
+            .cover-text {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="left">
+            <a href="https://bu.parisnanterre.fr/">Bibliothèques</a>
+        </div>
+        <div class="center">
+            <img src="{% static 'images/logo.png' %}" alt="Logo Bibliothèque" height="50">
+        </div>
+        <div class="right">
+            <a href="https://ent.parisnanterre.fr/">ENT</a>
+        </div>
+    </header>
+
+    <!-- Menu Bar -->
+    <nav class="menu-bar">
+        <ul>
+            <li><a href="https://bu.parisnanterre.fr/agenda-des-formations">Agenda Formation</a></li>
+            <li><a href="https://bu.parisnanterre.fr/calendrier-culturel">Agenda Culture</a></li>
+            <li><a href="https://bu.parisnanterre.fr/nouveautes">Nouveautés</a></li>
+            <li><a href="#login-section">Réserver un box silencieux</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Cover Section -->
+    <section class="cover-section">
+        <div class="cover-overlay"></div>
+        <div class="cover-text">Réserver un box silencieux</div>
+    </section>
+
+    
+    <!-- Introduction Section -->
+<section class="introduction">
+    <h1>Box Silencieux</h1>
+    <p>
+        La bibliothèque Université Paris Nanterre met à disposition des étudiants 2 box silencieux de travail en groupe 
+        pouvant accueillir de 1 à 4 personnes.
+    </p>
+    <p>
+        Elles sont ouvertes aux horaires de la bibliothèque (08h00-20h00) et accessibles uniquement sur réservation.
+    </p>
+    <p>    
+        Les lecteurs extérieurs n'y ont pas accès.
+    </p>
+    <h3>Réservation</h3>
+        <p>La réservation est limitée à 2 fois par semaine.</p>
+    <h3>Condition d'accès</h3>
+    <ul>
+        <li>Réservation obligatoire.</li>
+        <li>La personne titulaire de la réservation est responsable de l'état de la salle à sa restitution.</li>
+        <li>Passées 15 minutes de retard, votre réservation sera annulée et la salle réattribuée à un autre groupe.</li>
+        <li>En cas d'empêchement, merci d'annuler votre réservation.</li>
+    </ul>
+</section>
+
+    <!-- Main Content -->
+    <main class="main-content" id="login-section">
+        <div class="login-form">
+            <h2>Connexion Étudiant</h2>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label for="student_number">Numéro d'étudiant :</label>
+                <input type="text" id="student_number" name="student_number" placeholder="Entrez votre numéro" required>
+                <button type="submit">Envoyer le code</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h2> Des questions? </h2>
+        <button class="contact-button" onclick="location.href='https://bu.parisnanterre.fr/nous-contacter-5'">Nous Contacter</button>
+    </footer>
+    
+</body>
+</html>
